@@ -1,5 +1,5 @@
 # nodeviau
-Small but flexible node.js MVC framework based on express.
+Small but flexible node.js MVC web framework based on express.
 
 ## Feautures:
 
@@ -14,7 +14,7 @@ Small but flexible node.js MVC framework based on express.
 - sequelize.js
 - winston
 - pg as database (you could use another db)
-- pg-hstore as session storage (you could use another storage such as redis) *
+- pg store as session storage (you could use another storage such as redis) *
 - jade as template engine (you could use another engine)
 - helmet
 

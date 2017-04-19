@@ -1,9 +1,7 @@
 "use strict";
 
 const 
-    App = require('../base/Application'),
-    Url = require('../helper/Url');
-
+    App = require('../base/Application');
 /**
  * @module nodeviau/web/HtmlView
  * @author Itari <itari.onkar@gmail.com>
@@ -44,7 +42,7 @@ class HtmlView{
         if(typeof data === 'undefined'){
             data = {};
         }
-        let fullData = Object.assign(data, this.vars, {Url: Url});
+        let fullData = Object.assign(data, this.vars);
 
         if (this.response && this.template){
             this.response.render(this.template, fullData);

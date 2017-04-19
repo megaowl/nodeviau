@@ -2,7 +2,8 @@
 
 const 
     WebController = require("../components/nodeviau/web/WebController"),
-    App = require("../components/nodeviau/base/Application");
+    App = require("../components/nodeviau/base/Application"),
+    Url = require("../components/nodeviau/helper/Url");
 
 /**
  * Index application controller.
@@ -24,6 +25,7 @@ class IndexController extends WebController{
         console.log('b');
         this.title = 'Nodeviau';
         this.render('index', {
+            Url: Url,
             version: App.version,
             text: "Small and flexible framework for node.js based on express."
         });
