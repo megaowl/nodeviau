@@ -12,6 +12,7 @@ class AnabelController extends WebController{
      * Index action.
      */
     actionIndex(){
+        this.title = 'Anabel';
         this.render('index', {
             name: "I am Anabel"
         });
@@ -21,6 +22,7 @@ class AnabelController extends WebController{
      * Wow action.
      */
     actionSay(){
+        this.title = 'Anabel';
         this.render('index', {
             name: "I am Anabel, and I say: wow!"
         });

@@ -1,8 +1,12 @@
 extends ../layout
 
 block content
-    h1= title
-    p Welcome to #{title} #{version}
-    br
-    p #{text}
+    div.container
+        h1= title
+        p Welcome to #{title} #{version}
+        br
+        p #{text}
+        br
+        p Controller example (controllers/AnabelController): 
+            a(href=Url.to(['/anabel/say'])) Speak with Anabel
   
