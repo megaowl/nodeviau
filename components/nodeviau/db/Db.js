@@ -1,13 +1,19 @@
 "use strict";
 
 const 
+    App = require('../base/Application'),
     fs        = require("fs"),
     path      = require("path"),
     Sequelize = require("sequelize"),
     BaseObject = require("../base/BaseObject");
 
 /**
- * DAO class based on sequelize library.
+ * @module nodeviau/db/Db
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc DAO class based on sequelize library.
  */
 class Db extends BaseObject{
     /**
@@ -31,16 +37,17 @@ class Db extends BaseObject{
     connect(){
         try{
             this._connection = new Sequelize(this.dsn, this.options);
+            App.debug.logger.info("Connection with DB established.");
         }catch(e){
-            console.log(e);
+            App.debug.logger.error(e);
             process.exit(-1);
         }
         
         // sync with existing tables
         this._connection.sync(this.syncOptions)
             .then({})
-            .catch(function(e){
-                console.log(e);
+            .catch((e) => {
+                App.debug.logger.error(e);
                 process.exit(-1);
             });
 
@@ -58,15 +65,15 @@ class Db extends BaseObject{
         
         fs
             .readdirSync(modelsPath)
-            .filter(function(file) {
+            .filter((file) => {
                 return (file.indexOf(".") !== 0) && (file !== "index.js");
             })
-            .forEach(function(file) {
-                var model = self._connection.import(path.join(modelsPath, file));
+            .forEach((file) => {
+                let model = self._connection.import(path.join(modelsPath, file));
                 self._models[model.name] = model;
             });
 
-        Object.keys(self._models).forEach(function(modelName) {
+        Object.keys(self._models).forEach((modelName) => {
             if ("associate" in self._models[modelName]) {
                 self._models[modelName].associate(self._models);
             }

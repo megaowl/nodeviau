@@ -1,9 +1,15 @@
 "use strict";
 
-const App = require('../base/Application');
+const 
+    App = require('../base/Application');
 
 /**
- * Class for render html views.
+ * @module nodeviau/web/HtmlView
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Class for render html views.
  */
 class HtmlView{
     /**

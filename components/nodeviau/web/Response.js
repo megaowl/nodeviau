@@ -3,7 +3,12 @@
 const BaseObject = require('../base/BaseObject');
 
 /**
- * Handle response.
+ * @module nodeviau/web/Response
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Handle response helper
  */
 class Response extends BaseObject{
     /**
@@ -22,6 +27,7 @@ class Response extends BaseObject{
     render(template, data){
         this.data.render(template, data);
     }
+    
 }
 
 module.exports = Response;

@@ -9,7 +9,12 @@ const
     sessionStore = require('sequelstore-connect')(session);
 
 /**
- * Class for session saving and handling.
+ * @module nodeviau/web/Session
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Class for session saving and handling.
  */
 class Session extends BaseObject{
     /**
@@ -38,7 +43,7 @@ class Session extends BaseObject{
 
         // init store
         this.config.store = new sessionStore({
-            database: App.db.connection,
+            database: App.db.connection, // there will be stablished connection in lazyLoad mode
             sessionModel: App.db.models.sessions,
             transform: function (data) {
                 return data;

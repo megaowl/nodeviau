@@ -5,7 +5,11 @@ const
     App = require('../components/nodeviau/base/Application');
 
 /**
- * Controller for handling errors.
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc ler for handling errors.
  */
 class ErrorController extends WebController{
     /**
@@ -28,6 +32,8 @@ class ErrorController extends WebController{
      * @param next
      */
     error(err, req, res, next){
+        this.beforeAction(req, res, next);
+        
         App.response.data.locals.message = err.message;
         App.response.data.locals.error = App.environment === 'dev' ? err : {};
 

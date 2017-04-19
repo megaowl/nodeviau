@@ -5,7 +5,13 @@ const
     App = require('../base/Application');
 
 /**
- * User realization.
+ * @module nodeviau/web/Response
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @todo
+ * @class
+ * @classdesc User realization.
  */
 class User extends BaseObject{
     /**

@@ -13,11 +13,17 @@ const
     bodyParser = require('body-parser');
 
 /**
- * Main application class.
+ * @module nodeviau/base/Application
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ * 
+ * @class
+ * @classdesc Base Nodeviau application class
  */
 class Application extends BaseObject{
     /**
      * Initialize the application.
+     * @constructor
      */
     init(){
         // configure express core
@@ -32,7 +38,7 @@ class Application extends BaseObject{
         this._core.use(cookieParser());
         this._core.use(express.static(path.join(__dirname + '/../../../', config.viewStaticFolder)));
         this._router = express.Router();
-
+        
         // setting up port
         this._core.set('port', this.port);
         
@@ -46,10 +52,12 @@ class Application extends BaseObject{
         this.request = {};
         this.response = {};
         this.user = {};
+        this.debug = {};
     }
     
     /**
      * Creates the application - initialize and configure components.
+     * @return {Application}
      */
     create(){
         let keys = Object.keys(this.components);
@@ -63,13 +71,14 @@ class Application extends BaseObject{
 
     /**
      * Run the application.
+     * @returns void
      */
     run(){
         // init routes
         this.controllerList = {};
         let self = this;
         
-        fs.readdirSync(path.join(__dirname, "../../../controllers")).forEach(function (file) {
+        fs.readdirSync(path.join(__dirname, "../../../controllers")).forEach((file) => {
             if (file.substr(-3) === ".js"){
                 let basePath = path.basename(file, ".js");
                 let Controller = require('../../../controllers/' + file);
@@ -77,19 +86,12 @@ class Application extends BaseObject{
                     _basePath: 'basePath',
                     _name: file
                 });
-                
-                let 
-                    contollerName = basePath.replace('Controller', '').toLowerCase(),
-                    controllerDefaultAction = Controller.defaultAction;
-                
-                self._core.use('/' + contollerName + '/' + controllerDefaultAction, self.controllerList[basePath].router);
             }
         });
         
-        self._core.use('/', this.controllerList[config.defaultController].router);
-        self._core.use('/' + config.defaultRoute, this.controllerList[config.defaultController].router);
-        self._core.use(function(req, res, next){self.controllerList[config.errorController].forward(req, res, next)});
-        self._core.use(function(err, req, res, next) {self.controllerList[config.errorController].error(err, req, res, next);});
+        self._core.use('/', (req, res, next) => this.controllerList[config.defaultController].beforeAction(req, res, next));
+        self._core.use((req, res, next) => {self.controllerList[config.errorController].forward(req, res, next)});
+        self._core.use((err, req, res, next) => {self.controllerList[config.errorController].error(err, req, res, next);});
         
         // start server
         this._startServer();
@@ -97,7 +99,6 @@ class Application extends BaseObject{
 
     /**
      * Start server with debugging.
-     * 
      * @private
      */
     _startServer(){
@@ -109,16 +110,16 @@ class Application extends BaseObject{
         server.on('error', function (error){
             self.onError(error)
         });
-        server.on('listening', function(){
+        server.on('listening', () => {
             self.onListening(server, self.debug.logger)
         });
     }
 
     /**
      * Parse data after request.
-     * 
      * @param request
      * @param response
+     * @returns void
      */
     afterRequest(request, response){
         // init session
@@ -132,6 +133,7 @@ class Application extends BaseObject{
     /**
      * Event listener for HTTP server "error" event.
      * @param error
+     * @return void
      */
     onError(error) {
         if (error.syscall !== 'listen') {
@@ -145,11 +147,11 @@ class Application extends BaseObject{
         // handle specific listen errors with friendly messages
         switch (error.code) {
             case 'EACCES':
-                console.error(bind + ' requires elevated privileges');
+                this.debug.logger.error(bind + ' requires elevated privileges');
                 process.exit(1);
                 break;
             case 'EADDRINUSE':
-                console.error(bind + ' is already in use');
+                this.debug.logger.error(bind + ' is already in use');
                 process.exit(1);
                 break;
             default:
@@ -162,13 +164,14 @@ class Application extends BaseObject{
      * 
      * @param server
      * @param debug
+     * @return void
      */
     onListening(server, debug) {
         let addr = server.address();
         let bind = typeof addr === 'string'
             ? 'pipe ' + addr
             : 'port ' + addr.port;
-        this.debug.logger.log('Listening on ' + bind);
+        this.debug.logger.info('Listening on ' + bind);
     }
 
     /**

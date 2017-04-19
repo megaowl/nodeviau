@@ -3,8 +3,7 @@ Small but flexible node.js MVC framework based on express.
 
 ## Feautures:
 
-- MVC arch
-- DI with IoC 
+- MVC (DI) arch
 - Caching, debug, sessions and DAO
 - HTML\JSON views based on jade\pure json
 
@@ -33,5 +32,7 @@ Small but flexible node.js MVC framework based on express.
 
 ## ---
 Written and tested on:\
-Node.js 7.8 \
-EcmaScript 6
+Node.js 7.8, EcmaScript 6
+
+License\
+MIT

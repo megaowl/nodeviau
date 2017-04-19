@@ -1,7 +1,12 @@
 "use strict";
 
 /**
- * Base object class.
+ * @module nodeviau/base/BaseObject
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Base object class
  */
 class BaseObject{
     /**
@@ -21,7 +26,7 @@ class BaseObject{
     }
 
     /**
-     * This method will be called after costructor will be running.
+     * This method will be called at end of constructor.
      */
     init(){
     }

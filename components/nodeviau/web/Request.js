@@ -3,7 +3,12 @@
 const BaseObject = require('../base/BaseObject');
 
 /**
- * Request handler class.
+ * @module nodeviau/web/Request
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Request handler class.
  */
 class Request extends BaseObject{
     /**

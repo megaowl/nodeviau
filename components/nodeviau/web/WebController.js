@@ -7,7 +7,12 @@ const
     BaseObject = require('../base/BaseObject');
 
 /**
- * Base controller class.
+ * @module nodeviau/web/WebController
+ * @author Itari <itari.onkar@gmail.com>
+ * @licence MIT
+ *
+ * @class
+ * @classdesc Base controller class.
  */
 class WebController extends BaseObject{
     /**
@@ -51,10 +56,34 @@ class WebController extends BaseObject{
          * @type {string}
          */
         this.defaultAction = 'actionIndex';
-        
-        // initialize the router
+
+        /**
+         * Prepare routes
+         * 
+         * @type {*}
+         * @private
+         */
+        this.actions = [];
         this._router = App.router;
-        this._router.all("*", (req, res, next) => { this.beforeAction(req, res, next); });
+        this._collectActions();
+    }
+
+    /**
+     * Collect existed action and link to router.
+     * 
+     * @private
+     */
+    _collectActions(){
+        let self = this;
+        App.core.use('/' + this.name, (req, res, next) => { self.beforeAction(req, res, next); });
+        App.core.use('/' + this.name + '/*', (req, res, next) => { self.beforeAction(req, res, next); });
+        
+        Object.getOwnPropertyNames(Object.getPrototypeOf(self)).filter((prop) => {
+            if(typeof self[prop] === 'function' && prop.slice(0, 6) === 'action'){
+                self.actions.push(prop.slice(6).toLowerCase());
+            }
+        });
+        
     }
 
     /**
@@ -94,21 +123,21 @@ class WebController extends BaseObject{
             return false;
         }
         
+        
         let parts = baseUrl.split('/');
+        
         if(parts.length <= 2 
             || parts[2] === '' 
             || ('action' + StringHelper.ucfirst(parts[2])).toLowerCase() === this.defaultAction.toLowerCase()
         ){
             this.action = this.defaultAction;
-            return true;
         }else{
             if(typeof this['action' + StringHelper.ucfirst(parts[2])] !== 'undefined'){
                 this.action = 'action' + StringHelper.ucfirst(parts[2]);
-                return true;
-            }else{
-                return false;
             }
         }
+        
+        return (this.action !== null && typeof this[this.action] === 'function');
     }
 
     /**

@@ -1,9 +1,11 @@
 "use strict";
 
-const WebController = require('../components/nodeviau/web/WebController');
+const 
+    WebController = require('../components/nodeviau/web/WebController'),
+    Url = require('../components/nodeviau/helper/Url');
 
 /**
- * This is a simple controller which say: 'wow!'.
+ * This is a simple controller that says: 'wow!'.
  */
 class AnabelController extends WebController{
     /**

@@ -4,13 +4,21 @@ const path = require('path');
 
 module.exports = {
     name : 'Nodeviau',
-    version: '0.1.13',
+    version: '0.1.14',
     environment: 'dev',
     port: 3000,
     viewPath: path.join(__dirname + '/../', 'views'),
     viewEngine: 'jade',
     viewStaticFolder: 'public',
     components: {
+        debug: {
+            class : 'debug/Debug',
+            logLevel: 'debug',
+            transports: [
+                'console',
+                {'file': {filename: 'runtime/runtime.log'}}
+            ]
+        },
         db: {
             class: 'db/Db',
             syncOptions: {
@@ -50,10 +58,6 @@ module.exports = {
         },
         user: {
             class: 'web/User'
-        },
-        debug: {
-            class :'debug/Debug',
-            logLevel: 'debug'
         }
     },
     defaultController: 'IndexController',
