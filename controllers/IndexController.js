@@ -22,7 +22,6 @@ class IndexController extends WebController{
      * Index action.
      */
     actionIndex(){
-        console.log('b');
         this.title = 'Nodeviau';
         this.render('index', {
             Url: Url,
