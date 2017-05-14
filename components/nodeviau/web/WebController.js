@@ -4,7 +4,10 @@ const
     App = require("../base/Application"),
     HtmlView = require("./HtmlView"),
     StringHelper = require('../helper/StringHelper'),
-    BaseObject = require('../base/BaseObject');
+    BaseObject = require('../base/BaseObject'),
+    Reflection = require('../helper/ReflectionHelper'),
+    InvalidParamException = require("../exception/InvalidParamException"),
+    Crypto = require('crypto');
 
 /**
  * @module nodeviau/web/WebController
@@ -64,6 +67,7 @@ class WebController extends BaseObject{
          * @private
          */
         this.actions = [];
+        this.actionsParams = {};
         this._router = App.router;
         this._collectActions();
     }
@@ -98,11 +102,41 @@ class WebController extends BaseObject{
      */
     beforeAction(req, res, next){
         App.afterRequest(req, res);
-        
+
         if(this.parseAction()){
+            this.checkParams(this[this.action]);
             this[this.action]();
         }else{
             return next();
+        }
+    }
+
+    /**
+     * Compare arguments from $_GET and from method params.
+     * @param action
+     * @returns void
+     */
+    checkParams(action){
+        let 
+            actionHash = Crypto.createHash('md5').update(action.toString()).digest('hex'),
+            argumentsArray = [];
+        
+        // get arguments
+        if(typeof this.actionsParams[action] === 'undefined'){
+            argumentsArray = Reflection.getAttributes(action);
+            this.actionsParams[actionHash] = argumentsArray;
+        }else{
+            argumentsArray = this.actionsParams[actionHash];
+        }
+
+        if(argumentsArray.length === 0){
+            return;
+        }
+        
+        for(let i = 0; i < argumentsArray.length; i++){
+            if(App.request.get(argumentsArray[i]) === null){
+                throw new InvalidParamException('Argument not found: ' + argumentsArray[i]);
+            }
         }
     }
 
