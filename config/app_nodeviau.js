@@ -4,12 +4,13 @@ const path = require('path');
 
 module.exports = {
     name : 'Nodeviau',
-    version: '0.1.14',
+    version: '0.1.21',
     environment: 'dev',
     port: 3000,
     viewPath: path.join(__dirname + '/../', 'views'),
     viewEngine: 'jade',
     viewStaticFolder: 'public',
+    
     components: {
         debug: {
             class : 'debug/Debug',
@@ -60,7 +61,23 @@ module.exports = {
             class: 'web/User'
         }
     },
+    
     defaultController: 'IndexController',
     defaultRoute: 'index',
-    errorController: 'ErrorController'
+    errorController: 'ErrorController',
+
+    helmet: {
+        contentSecurityPolicy: false,
+        expectCt: false,
+        dnsPrefetchControl: true,
+        frameguard: false,
+        hidePoweredBy: true,
+        hpkp: false,
+        hsts: true,
+        ieNoOpen: true,
+        noCache: false,
+        noSniff: true,
+        referrerPolicy: false,
+        xssFilter: true
+    }
 };

@@ -10,7 +10,8 @@ const
     favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    helmet = require('helmet');
 
 /**
  * @module nodeviau/base/Application
@@ -18,7 +19,7 @@ const
  * @licence MIT
  * 
  * @class
- * @classdesc Base Nodeviau application class
+ * @classdesc Base Nodeviau application class.
  */
 class Application extends BaseObject{
     /**
@@ -37,6 +38,7 @@ class Application extends BaseObject{
         this._core.use(bodyParser.urlencoded({ extended: false }));
         this._core.use(cookieParser());
         this._core.use(express.static(path.join(__dirname + '/../../../', config.viewStaticFolder)));
+        this._core.use(helmet(config.helmet ? config.helmet : {}));
         this._router = express.Router();
         
         // setting up port
@@ -107,7 +109,7 @@ class Application extends BaseObject{
 
         let server = http.createServer(this._core);
         server.listen(this.port);
-        server.on('error', function (error){
+        server.on('error', (error) => {
             self.onError(error)
         });
         server.on('listening', () => {
