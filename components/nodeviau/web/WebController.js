@@ -5,7 +5,7 @@ const
     HtmlView = require("./HtmlView"),
     StringHelper = require('../helper/StringHelper'),
     BaseObject = require('../base/BaseObject'),
-    Reflection = require('../helper/ReflectionHelper'),
+    ReflectionHelper = require('../helper/ReflectionHelper'),
     InvalidParamException = require("../exception/InvalidParamException"),
     Crypto = require('crypto');
 
@@ -123,7 +123,7 @@ class WebController extends BaseObject{
         
         // get arguments
         if(typeof this.actionsParams[action] === 'undefined'){
-            argumentsArray = Reflection.getAttributes(action);
+            argumentsArray = ReflectionHelper.getAttributes(action);
             this.actionsParams[actionHash] = argumentsArray;
         }else{
             argumentsArray = this.actionsParams[actionHash];
@@ -142,7 +142,7 @@ class WebController extends BaseObject{
 
     /**
      * Checks controller and action.
-     * 
+     *  
      * Url must be like '/controller/action?args1=1&args2=2' etc.
      * 
      * @returns {boolean}
