@@ -61,7 +61,7 @@ class Db extends BaseObject{
      */
     _collectModels(){
         let self = this;
-        let modelsPath = __dirname + '/../../../models';
+        let modelsPath = __dirname + '/../../../schemas';
         
         fs
             .readdirSync(modelsPath)

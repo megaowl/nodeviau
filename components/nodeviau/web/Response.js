@@ -8,7 +8,7 @@ const BaseObject = require('../base/BaseObject');
  * @licence MIT
  *
  * @class
- * @classdesc Handle response helper
+ * @classdesc Handle response helpers
  */
 class Response extends BaseObject{
     /**

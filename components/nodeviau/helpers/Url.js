@@ -4,7 +4,7 @@ const
     App = require('../base/Application');
 
 /**
- * @module nodeviau/helper/Url
+ * @module nodeviau/helpers/Url
  * @author Itari <itari.onkar@gmail.com>
  * @licence MIT
  * 

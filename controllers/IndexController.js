@@ -3,7 +3,7 @@
 const 
     WebController = require("../components/nodeviau/web/WebController"),
     App = require("../components/nodeviau/base/Application"),
-    Url = require("../components/nodeviau/helper/Url");
+    Url = require("../components/nodeviau/helpers/Url");
 
 /**
  * Index application controller.

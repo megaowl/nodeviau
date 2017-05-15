@@ -58,6 +58,30 @@ class Request extends BaseObject{
     }
 
     /**
+     * Returns is request method GET.
+     * @returns {boolean}
+     */
+    isGet(){
+        return this._data.method === 'GET';
+    }
+
+    /**
+     * Returns is request method POST.
+     * @returns {boolean}
+     */
+    isPost(){
+        return this._data.method === 'POST';
+    }
+
+    /**
+     * Returns is request method AJAX.
+     * @returns {boolean}
+     */
+    isAjax(){
+        return this._data.xhr && this._data.headers.accept.indexOf('json') === -1;
+    }
+
+    /**
      * Returns data from body.
      * 
      * @param key

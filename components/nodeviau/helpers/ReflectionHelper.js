@@ -1,12 +1,12 @@
 "use strict";
 
 /**
- * @module nodeviau/web/WebController
+ * @module nodeviau/helpers/ReflectionHelper
  * @author Itari <itari.onkar@gmail.com>
  * @licence MIT
  *
  * @class
- * @classdesc Reflection helper class
+ * @classdesc Reflection helpers class
  */
 class ReflectionHelper{
     /**
@@ -22,6 +22,15 @@ class ReflectionHelper{
             .split('){', 1)[0].replace(/^[^(]*[(]/, '') // extract the parameters  
             .replace(/=[^,]+/g, '') // strip any ES6 defaults  
             .split(',').filter(Boolean); // split & filter [""]
+    }
+
+    /**
+     * Returns class name.
+     * @param object
+     * @returns {string}
+     */
+    static getClassName(object){
+        return object.constructor.name;
     }
     
 }

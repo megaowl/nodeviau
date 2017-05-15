@@ -1,12 +1,12 @@
 "use strict";
 
 /**
- * @module nodeviau/helper/StringHelper
+ * @module nodeviau/helpers/StringHelper
  * @author Itari <itari.onkar@gmail.com>
  * @licence MIT
  *
  * @class
- * @classdesc String helper class
+ * @classdesc String helpers class
  */
 class StringHelper{
     /**

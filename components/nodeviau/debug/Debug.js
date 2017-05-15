@@ -3,7 +3,7 @@
 const 
     BaseObject = require('../base/BaseObject'),
     Winston = require('winston'),
-    StringHelper = require('../helper/StringHelper');
+    StringHelper = require('../helpers/StringHelper');
 
 /**
  * @module nodeviau/debug/Debug

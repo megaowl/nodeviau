@@ -1,0 +1,52 @@
+extends ../layout
+
+block content
+    div.container
+        h1= title
+        p If you want to speak with Anabel, please fill the form below.
+        
+        br
+        
+        if anabel.hasErrors()
+            div.alert.alert-danger
+                b We got following errors:
+                br
+                br
+                ul
+                    - var errors = anabel.getErrors(), keys = Object.keys(errors);
+                    - for (var i = 0, e = keys.length; i < e; i++){
+                        li #{anabel.getLabel(keys[i])}:
+                            br
+                            - for(var x = 0; x < errors[keys[i]].length; x++){
+                                p #{errors[keys[i]][x]}
+                            - }
+                    - }
+        else if !anabel.hasErrors() && phrase !== null
+            div.alert.alert-success
+                b #{anabel.getAttribute('name')}, #{phrase}
+                    
+        form.form-horizontal(method="POST", action="/anabel/speak")
+            div.form-group
+                label(for="form-id") Enter your ID
+                input.form-control#form-id(name="AnabelModel[id]", value=anabel.getAttribute('id'))
+                p.help-block #{anabel.getHint('id')}
+                
+            div.form-group
+                label(for="form-name") Enter your name
+                input.form-control#form-name(name="AnabelModel[name]", value=anabel.getAttribute('name'))
+                p.help-block #{anabel.getHint('name')}
+                
+            div.form-group
+                label(for="form-email") Enter your Email
+                input.form-control#form-email(name="AnabelModel[email]", value=anabel.getAttribute('email'))
+                p.help-block #{anabel.getHint('email')}
+                
+            div.form-group
+                label(for="form-phrase") What you wanna say to Anabel?
+                input.form-control#form-phrase(name="AnabelModel[phrase]", value=anabel.getAttribute('phrase'))
+                p.help-block #{anabel.getHint('phrase')}
+                
+            br 
+            input.btn.btn-success(type="submit", name="submit", value="Submit")
+                
+                

@@ -1,6 +1,6 @@
 "use strict";
 
-const BaseValidator = require('BaseValidator');
+const BaseValidator = require('./BaseValidator');
 
 /**
  * @module nodeviau/validator/EmailValidator
@@ -15,7 +15,11 @@ class EmailValidator extends BaseValidator{
      * Initialize regex.
      */
     init(){
-        this.regex =/^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+        super.init();
+        
+        if(typeof this.regex === 'undefined') {
+            this.regex = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+        }
     }
 
     /**
@@ -25,6 +29,11 @@ class EmailValidator extends BaseValidator{
      * @returns void
      */
     validateAttribute(model, attributeName){
+
+        if(this.isEmptyAndIsAllowed(model, attributeName)){
+            return;
+        }
+        
         let email = model[attributeName];
         
         if(typeof model[attributeName] !== 'string' || model[attributeName].length === 0){

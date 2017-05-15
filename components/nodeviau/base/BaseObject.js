@@ -15,7 +15,7 @@ class BaseObject{
      */
     constructor(config = null){
         // add configuration if it needed
-        if(typeof config === 'object'){
+        if(typeof config === 'object' && config !== null){
             let keys = Object.keys(config);
             for(let i = 0, k = keys.length; i < k; i++){
                 this[keys[i]] = config[keys[i]];
@@ -31,6 +31,23 @@ class BaseObject{
     init(){
     }
 
+    /**
+     * Returns attribute of current object.
+     * @param attributeName
+     * @returns mixed
+     */
+    getAttribute(attributeName){
+        return this[attributeName] === 'undefined' ? null : this[attributeName];
+    }
+
+    /**
+     * Returns attributes count.
+     * @returns {Number}
+     */
+    get length(){
+        return Object.keys(this).length;
+    }
+    
 }
 
 module.exports = BaseObject;

@@ -4,7 +4,7 @@ const
     config = require('../../../config/app.js'),
     fs = require('fs'),
     path = require('path'),
-    StringHelper = require('../helper/StringHelper'),
+    StringHelper = require('../helpers/StringHelper'),
     BaseObject = require('./BaseObject'),
     express = require('express'),
     favicon = require('serve-favicon'),

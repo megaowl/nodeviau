@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * @module nodeviau/helper/String
+ * @module nodeviau/helpers/DateHelper
  * @author Itari <itari.onkar@gmail.com>
  * @licence MIT
  *

@@ -3,9 +3,9 @@
 const 
     App = require("../base/Application"),
     HtmlView = require("./HtmlView"),
-    StringHelper = require('../helper/StringHelper'),
+    StringHelper = require('../helpers/StringHelper'),
     BaseObject = require('../base/BaseObject'),
-    ReflectionHelper = require('../helper/ReflectionHelper'),
+    ReflectionHelper = require('../helpers/ReflectionHelper'),
     InvalidParamException = require("../exception/InvalidParamException"),
     Crypto = require('crypto');
 
