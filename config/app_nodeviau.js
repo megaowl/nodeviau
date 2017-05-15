@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     name : 'Nodeviau',
-    version: '0.1.31',
+    version: '1.2.23',
     environment: 'dev',
     port: 3000,
     viewPath: path.join(__dirname + '/../', 'views'),
