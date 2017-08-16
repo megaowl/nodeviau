@@ -19,6 +19,39 @@ class Response extends BaseObject{
     }
 
     /**
+     * Settings up new cookie.
+     * @param cookieParam
+     * @returns {Response}
+     */
+    cookieSet(cookieParam = null){
+        const options = {};
+        const keys = ['maxAge', 'httpOnly'];
+        for(let i = 0; i < keys.length; i++){
+            if(typeof cookieParam.get(keys[i]) !== 'undefined'){
+                options[keys[i]] = cookieParam.get(keys[i]);
+            }
+        }
+        
+        this.data.cookie(
+            cookieParam.get('name'),
+            cookieParam.get('value'),
+            options
+        );
+        
+        return this;
+    }
+
+    /**
+     * Remove existed cookie.
+     * @param name
+     * @returns {Response}
+     */
+    cookieRemove(name){
+        this.data.clearCookie(name);
+        return this;
+    }
+
+    /**
      * Render the data.
      * 
      * @param template

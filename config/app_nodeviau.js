@@ -4,12 +4,14 @@ const path = require('path');
 
 module.exports = {
     name : 'Nodeviau',
-    version: '1.2.24',
+    version: '0.1.2',
     environment: 'dev',
     port: 3000,
     viewPath: path.join(__dirname + '/../', 'views'),
     viewEngine: 'jade',
     viewStaticFolder: 'public',
+    locale: 'en-EN',
+    defaultLocale: 'en-EN',
     
     components: {
         debug: {
@@ -61,7 +63,6 @@ module.exports = {
             class: 'web/User'
         }
     },
-    
     defaultController: 'IndexController',
     defaultRoute: 'index',
     errorController: 'ErrorController',

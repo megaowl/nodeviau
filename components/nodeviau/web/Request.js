@@ -1,6 +1,7 @@
 "use strict";
 
-const BaseObject = require('../base/BaseObject');
+const 
+    BaseObject = require('../base/BaseObject');
 
 /**
  * @module nodeviau/web/Request
@@ -74,11 +75,11 @@ class Request extends BaseObject{
     }
 
     /**
-     * Returns is request method AJAX.
+     * Returns uis request method AJAX.
      * @returns {boolean}
      */
     isAjax(){
-        return this._data.xhr && this._data.headers.accept.indexOf('json') === -1;
+        return this._data.xhr && this._data.headers.accept.indexOf('json') !== -1;
     }
 
     /**
@@ -89,6 +90,17 @@ class Request extends BaseObject{
      */
     fromBody(key){
         return typeof this._data[key] !== 'undefined' ? this._data[key] : null;
+    }
+
+    /**
+     * Returns cookie value if it exists.
+     * @param name
+     * @returns {null}
+     */
+    cookieGet(name){
+        return typeof this.data.cookies[name] !== 'undefined'
+            ? this.data.cookies[name]
+            : null;
     }
 
     /**

@@ -79,15 +79,15 @@ class WebController extends BaseObject{
      */
     _collectActions(){
         let self = this;
+        
         App.core.use('/' + this.name, (req, res, next) => { self.beforeAction(req, res, next); });
         App.core.use('/' + this.name + '/*', (req, res, next) => { self.beforeAction(req, res, next); });
-        
+
         Object.getOwnPropertyNames(Object.getPrototypeOf(self)).filter((prop) => {
             if(typeof self[prop] === 'function' && prop.slice(0, 6) === 'action'){
                 self.actions.push(prop.slice(6).toLowerCase());
             }
         });
-        
     }
 
     /**
@@ -157,9 +157,11 @@ class WebController extends BaseObject{
             return false;
         }
         
-        
-        let parts = baseUrl.split('/');
-        
+        // @bugfix for addresses with params after '?'
+        let
+            parts = baseUrl.split('?');
+            parts = parts[0].split('/');
+
         if(parts.length <= 2 
             || parts[2] === '' 
             || ('action' + StringHelper.ucfirst(parts[2])).toLowerCase() === this.defaultAction.toLowerCase()
@@ -170,7 +172,7 @@ class WebController extends BaseObject{
                 this.action = 'action' + StringHelper.ucfirst(parts[2]);
             }
         }
-        
+
         return (this.action !== null && typeof this[this.action] === 'function');
     }
 
