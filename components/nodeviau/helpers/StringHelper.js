@@ -92,7 +92,32 @@ class StringHelper{
             str.slice(start + length)
         ].join('');
     }
-    
+
+    /**
+     * Returns true if needle founded in haystack.
+     * @param haystack
+     * @param needle
+     * @param bool
+     * @returns {*}
+     */
+    static stristr(haystack, needle, bool = true){	// Case-insensitive strstr()
+        // 
+        // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+
+        let pos = 0;
+
+        pos = haystack.toLowerCase().indexOf( needle.toLowerCase() );
+        if( pos === -1 ){
+            return false;
+        } else{
+            if( bool ){
+                return true;
+            } else{
+                return haystack.slice( pos );
+            }
+        }
+    }
+
 }
 
 module.exports = StringHelper;

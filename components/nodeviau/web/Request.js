@@ -1,7 +1,8 @@
 "use strict";
 
 const 
-    BaseObject = require('../base/BaseObject');
+    BaseObject = require('../base/BaseObject'),
+    StringHelper = require('../helpers/StringHelper');
 
 /**
  * @module nodeviau/web/Request
@@ -75,11 +76,24 @@ class Request extends BaseObject{
     }
 
     /**
-     * Returns uis request method AJAX.
+     * Returns is request method AJAX.
      * @returns {boolean}
      */
     isAjax(){
         return this._data.xhr && this._data.headers.accept.indexOf('json') !== -1;
+    }
+
+    /**
+     * Returns is mobile device.
+     * @returns {boolean}
+     */
+    isMobile(){
+        const header = this._data.headers['user-agent'];
+        
+        return StringHelper.stristr(header, 'iphone')
+            || StringHelper.stristr(header, 'ipad')
+            || StringHelper.stristr(header, 'ipod')
+            || StringHelper.stristr(header, 'android');
     }
 
     /**
